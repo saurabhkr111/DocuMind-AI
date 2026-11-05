@@ -31,7 +31,7 @@ def test_repository_success(monkeypatch):
 
 
 def test_commits_success(monkeypatch):
-    async def mock_get_commits(owner, repo, per_page=10):
+    async def mock_get_commits(owner, repo, per_page=10, page=1):
         return [
             {
                 "sha": "abc123",

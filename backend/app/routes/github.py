@@ -38,13 +38,17 @@ async def analyze_repository(owner: str, repo: str):
 async def analyze_commits(
     owner: str,
     repo: str,
-    per_page: int = Query(default=10, ge=1, le=100)
+    per_page: int = Query(default=10, ge=1, le=100),
+    page: int = Query(default=1, ge=1)
 ):
-    """Retrieve recent repository commits."""
+    """Retrieve a specific page of repository commits."""
 
     try:
         return await github_service.get_commits(
-            owner, repo, per_page
+            owner=owner,
+            repo=repo,
+            per_page=per_page,
+            page=page
         )
 
     except ValueError as error:

@@ -51,27 +51,41 @@ class GitHubService:
             )
 
         response.raise_for_status()
+
         return response.json()
 
     async def get_repository(self, owner: str, repo: str):
+        """Retrieve GitHub repository information."""
+
         self.validate_repository(owner, repo)
 
-        return await self._get(f"/repos/{owner}/{repo}")
+        return await self._get(
+            f"/repos/{owner}/{repo}"
+        )
 
     async def get_commits(
         self,
         owner: str,
         repo: str,
-        per_page: int = 10
+        per_page: int = 10,
+        page: int = 1
     ):
+        """Retrieve a specific page of repository commits."""
+
         self.validate_repository(owner, repo)
 
         if not 1 <= per_page <= 100:
             raise ValueError("per_page must be between 1 and 100.")
 
+        if page < 1:
+            raise ValueError("page must be greater than or equal to 1.")
+
         return await self._get(
             f"/repos/{owner}/{repo}/commits",
-            params={"per_page": per_page}
+            params={
+                "per_page": per_page,
+                "page": page
+            }
         )
 
     async def get_pull_request(
@@ -80,6 +94,8 @@ class GitHubService:
         repo: str,
         pull_number: int
     ):
+        """Retrieve pull request information."""
+
         self.validate_repository(owner, repo)
 
         if pull_number < 1:
@@ -95,6 +111,8 @@ class GitHubService:
         repo: str,
         pull_number: int
     ):
+        """Retrieve changed files from a pull request."""
+
         self.validate_repository(owner, repo)
 
         if pull_number < 1:
