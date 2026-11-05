@@ -6,6 +6,7 @@ from fastapi import FastAPI
 from backend.app.database.connection import init_db
 from backend.app import models
 from backend.app.routes.workflow import router as workflow_router
+from backend.app.routes.github import router as github_router
 
 
 @asynccontextmanager
@@ -27,6 +28,7 @@ app = FastAPI(
 )
 
 app.include_router(workflow_router)
+app.include_router(github_router)
 
 
 @app.get("/")
