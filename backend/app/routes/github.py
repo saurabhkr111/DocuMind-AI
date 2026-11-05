@@ -66,16 +66,17 @@ async def analyze_commits(
             detail="Unable to connect to GitHub."
         )
 
-
 @router.get(
     "/repositories/{owner}/{repo}/pulls/{pull_number}"
 )
 async def analyze_pull_request(
     owner: str,
     repo: str,
-    pull_number: int
+    pull_number: int,
+    per_page: int = Query(default=30, ge=1, le=100),
+    page: int = Query(default=1, ge=1)
 ):
-    """Retrieve PR details and changed files."""
+    """Retrieve PR details and a specific page of changed files."""
 
     try:
         pull_request = await github_service.get_pull_request(
@@ -83,7 +84,11 @@ async def analyze_pull_request(
         )
 
         changed_files = await github_service.get_pull_request_files(
-            owner, repo, pull_number
+            owner=owner,
+            repo=repo,
+            pull_number=pull_number,
+            per_page=per_page,
+            page=page
         )
 
         return {
@@ -92,7 +97,10 @@ async def analyze_pull_request(
         }
 
     except ValueError as error:
-        raise HTTPException(status_code=400, detail=str(error))
+        raise HTTPException(
+            status_code=400,
+            detail=str(error)
+        )
 
     except httpx.HTTPStatusError as error:
         raise HTTPException(

@@ -109,15 +109,27 @@ class GitHubService:
         self,
         owner: str,
         repo: str,
-        pull_number: int
+        pull_number: int,
+        per_page: int = 30,
+        page: int = 1
     ):
-        """Retrieve changed files from a pull request."""
+        """Retrieve a specific page of changed files from a pull request."""
 
         self.validate_repository(owner, repo)
 
         if pull_number < 1:
             raise ValueError("Pull request number must be positive.")
 
+        if not 1 <= per_page <= 100:
+            raise ValueError("per_page must be between 1 and 100.")
+
+        if page < 1:
+            raise ValueError("page must be greater than or equal to 1.")
+
         return await self._get(
-            f"/repos/{owner}/{repo}/pulls/{pull_number}/files"
+            f"/repos/{owner}/{repo}/pulls/{pull_number}/files",
+            params={
+                "per_page": per_page,
+                "page": page
+            }
         )
