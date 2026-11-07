@@ -107,15 +107,36 @@ def persist_agent_results(
 
         # 5. Determine final workflow status.
         total_agents = len(results)
-
         if total_agents == 0 or failed_count == total_agents:
             workflow.status = "FAILED"
-
-        elif completed_count == total_agents:
-            workflow.status = "COMPLETED"
-
-        else:
+        elif failed_count > 0:
             workflow.status = "PARTIAL"
+        else:
+            # Ensure newly created documents are available for querying.
+            db.flush()
+            # Retrieve all documents belonging to this workflow.
+            documents = (
+                db.query(Document)
+                .filter(Document.workflow_id == workflow.id)
+                .all()
+            )
+            approval_statuses = [
+                document.approval_status
+                for document in documents
+            ]
+            if not approval_statuses:
+                workflow.status = "COMPLETED"
+            elif "PENDING" in approval_statuses:
+                workflow.status = "AWAITING_APPROVAL"
+            elif "REJECTED" in approval_statuses:
+                workflow.status = "REJECTED"
+            elif all(
+                approval_status == "APPROVED"
+                for approval_status in approval_statuses
+            ):
+                workflow.status = "APPROVED"
+            else:
+                workflow.status = "COMPLETED"
 
         # 6. Commit all changes together.
         db.commit()

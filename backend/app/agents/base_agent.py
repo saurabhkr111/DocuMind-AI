@@ -59,15 +59,14 @@ class BaseAgent(ABC):
                 result=result.model_dump(mode="json"),
                 execution_time_ms=round(execution_time, 2),
             )
-
         except Exception:
             execution_time = (
                 perf_counter() - start_time
-            ) * 1000
-
+                ) * 1000
             return AgentOutput(
-                agent_name=self.agent_name,
-                status=AgentStatus.FAILED,
-                error="Agent execution failed.",
-                execution_time_ms=round(execution_time, 2),
-            )
+        agent_name=self.agent_name,
+        status=AgentStatus.FAILED,
+        error="Agent execution failed.",
+        execution_time_ms=round(execution_time, 2),
+    )
+        

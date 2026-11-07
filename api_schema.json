@@ -1,0 +1,1514 @@
+﻿{
+    "openapi":  "3.1.0",
+    "info":  {
+                 "title":  "DocuMind AI",
+                 "description":  "AI-powered Documentation and Team Intelligence Platform",
+                 "version":  "1.0.0"
+             },
+    "paths":  {
+                  "/api/v1/workflows/":  {
+                                             "post":  {
+                                                          "tags":  [
+                                                                       "Workflows"
+                                                                   ],
+                                                          "summary":  "Create Workflow",
+                                                          "operationId":  "create_workflow_api_v1_workflows__post",
+                                                          "parameters":  [
+                                                                             {
+                                                                                 "name":  "authorization",
+                                                                                 "in":  "header",
+                                                                                 "required":  false,
+                                                                                 "schema":  {
+                                                                                                "anyOf":  [
+                                                                                                              {
+                                                                                                                  "type":  "string"
+                                                                                                              },
+                                                                                                              {
+                                                                                                                  "type":  "null"
+                                                                                                              }
+                                                                                                          ],
+                                                                                                "title":  "Authorization"
+                                                                                            }
+                                                                             }
+                                                                         ],
+                                                          "requestBody":  {
+                                                                              "required":  true,
+                                                                              "content":  {
+                                                                                              "application/json":  {
+                                                                                                                       "schema":  {
+                                                                                                                                      "$ref":  "#/components/schemas/WorkflowCreate"
+                                                                                                                                  }
+                                                                                                                   }
+                                                                                          }
+                                                                          },
+                                                          "responses":  {
+                                                                            "201":  {
+                                                                                        "description":  "Successful Response",
+                                                                                        "content":  {
+                                                                                                        "application/json":  {
+                                                                                                                                 "schema":  {
+                                                                                                                                                "$ref":  "#/components/schemas/WorkflowResponse"
+                                                                                                                                            }
+                                                                                                                             }
+                                                                                                    }
+                                                                                    },
+                                                                            "422":  {
+                                                                                        "description":  "Validation Error",
+                                                                                        "content":  {
+                                                                                                        "application/json":  {
+                                                                                                                                 "schema":  {
+                                                                                                                                                "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                            }
+                                                                                                                             }
+                                                                                                    }
+                                                                                    }
+                                                                        }
+                                                      },
+                                             "get":  {
+                                                         "tags":  [
+                                                                      "Workflows"
+                                                                  ],
+                                                         "summary":  "Get All Workflows",
+                                                         "operationId":  "get_all_workflows_api_v1_workflows__get",
+                                                         "parameters":  [
+                                                                            {
+                                                                                "name":  "authorization",
+                                                                                "in":  "header",
+                                                                                "required":  false,
+                                                                                "schema":  {
+                                                                                               "anyOf":  [
+                                                                                                             {
+                                                                                                                 "type":  "string"
+                                                                                                             },
+                                                                                                             {
+                                                                                                                 "type":  "null"
+                                                                                                             }
+                                                                                                         ],
+                                                                                               "title":  "Authorization"
+                                                                                           }
+                                                                            }
+                                                                        ],
+                                                         "responses":  {
+                                                                           "200":  {
+                                                                                       "description":  "Successful Response",
+                                                                                       "content":  {
+                                                                                                       "application/json":  {
+                                                                                                                                "schema":  {
+                                                                                                                                               "type":  "array",
+                                                                                                                                               "items":  {
+                                                                                                                                                             "$ref":  "#/components/schemas/WorkflowResponse"
+                                                                                                                                                         },
+                                                                                                                                               "title":  "Response Get All Workflows Api V1 Workflows  Get"
+                                                                                                                                           }
+                                                                                                                            }
+                                                                                                   }
+                                                                                   },
+                                                                           "422":  {
+                                                                                       "description":  "Validation Error",
+                                                                                       "content":  {
+                                                                                                       "application/json":  {
+                                                                                                                                "schema":  {
+                                                                                                                                               "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                           }
+                                                                                                                            }
+                                                                                                   }
+                                                                                   }
+                                                                       }
+                                                     }
+                                         },
+                  "/api/v1/workflows/{workflow_id}/details":  {
+                                                                  "get":  {
+                                                                              "tags":  [
+                                                                                           "Workflows"
+                                                                                       ],
+                                                                              "summary":  "Get Workflow Details",
+                                                                              "operationId":  "get_workflow_details_api_v1_workflows__workflow_id__details_get",
+                                                                              "parameters":  [
+                                                                                                 {
+                                                                                                     "name":  "workflow_id",
+                                                                                                     "in":  "path",
+                                                                                                     "required":  true,
+                                                                                                     "schema":  {
+                                                                                                                    "type":  "integer",
+                                                                                                                    "title":  "Workflow Id"
+                                                                                                                }
+                                                                                                 },
+                                                                                                 {
+                                                                                                     "name":  "authorization",
+                                                                                                     "in":  "header",
+                                                                                                     "required":  false,
+                                                                                                     "schema":  {
+                                                                                                                    "anyOf":  [
+                                                                                                                                  {
+                                                                                                                                      "type":  "string"
+                                                                                                                                  },
+                                                                                                                                  {
+                                                                                                                                      "type":  "null"
+                                                                                                                                  }
+                                                                                                                              ],
+                                                                                                                    "title":  "Authorization"
+                                                                                                                }
+                                                                                                 }
+                                                                                             ],
+                                                                              "responses":  {
+                                                                                                "200":  {
+                                                                                                            "description":  "Successful Response",
+                                                                                                            "content":  {
+                                                                                                                            "application/json":  {
+                                                                                                                                                     "schema":  {
+                                                                                                                                                                    "$ref":  "#/components/schemas/WorkflowDetailResponse"
+                                                                                                                                                                }
+                                                                                                                                                 }
+                                                                                                                        }
+                                                                                                        },
+                                                                                                "422":  {
+                                                                                                            "description":  "Validation Error",
+                                                                                                            "content":  {
+                                                                                                                            "application/json":  {
+                                                                                                                                                     "schema":  {
+                                                                                                                                                                    "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                                                }
+                                                                                                                                                 }
+                                                                                                                        }
+                                                                                                        }
+                                                                                            }
+                                                                          }
+                                                              },
+                  "/api/v1/workflows/{workflow_id}":  {
+                                                          "get":  {
+                                                                      "tags":  [
+                                                                                   "Workflows"
+                                                                               ],
+                                                                      "summary":  "Get Workflow",
+                                                                      "operationId":  "get_workflow_api_v1_workflows__workflow_id__get",
+                                                                      "parameters":  [
+                                                                                         {
+                                                                                             "name":  "workflow_id",
+                                                                                             "in":  "path",
+                                                                                             "required":  true,
+                                                                                             "schema":  {
+                                                                                                            "type":  "integer",
+                                                                                                            "title":  "Workflow Id"
+                                                                                                        }
+                                                                                         },
+                                                                                         {
+                                                                                             "name":  "authorization",
+                                                                                             "in":  "header",
+                                                                                             "required":  false,
+                                                                                             "schema":  {
+                                                                                                            "anyOf":  [
+                                                                                                                          {
+                                                                                                                              "type":  "string"
+                                                                                                                          },
+                                                                                                                          {
+                                                                                                                              "type":  "null"
+                                                                                                                          }
+                                                                                                                      ],
+                                                                                                            "title":  "Authorization"
+                                                                                                        }
+                                                                                         }
+                                                                                     ],
+                                                                      "responses":  {
+                                                                                        "200":  {
+                                                                                                    "description":  "Successful Response",
+                                                                                                    "content":  {
+                                                                                                                    "application/json":  {
+                                                                                                                                             "schema":  {
+                                                                                                                                                            "$ref":  "#/components/schemas/WorkflowResponse"
+                                                                                                                                                        }
+                                                                                                                                         }
+                                                                                                                }
+                                                                                                },
+                                                                                        "422":  {
+                                                                                                    "description":  "Validation Error",
+                                                                                                    "content":  {
+                                                                                                                    "application/json":  {
+                                                                                                                                             "schema":  {
+                                                                                                                                                            "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                                        }
+                                                                                                                                         }
+                                                                                                                }
+                                                                                                }
+                                                                                    }
+                                                                  },
+                                                          "put":  {
+                                                                      "tags":  [
+                                                                                   "Workflows"
+                                                                               ],
+                                                                      "summary":  "Update Workflow",
+                                                                      "operationId":  "update_workflow_api_v1_workflows__workflow_id__put",
+                                                                      "parameters":  [
+                                                                                         {
+                                                                                             "name":  "workflow_id",
+                                                                                             "in":  "path",
+                                                                                             "required":  true,
+                                                                                             "schema":  {
+                                                                                                            "type":  "integer",
+                                                                                                            "title":  "Workflow Id"
+                                                                                                        }
+                                                                                         },
+                                                                                         {
+                                                                                             "name":  "authorization",
+                                                                                             "in":  "header",
+                                                                                             "required":  false,
+                                                                                             "schema":  {
+                                                                                                            "anyOf":  [
+                                                                                                                          {
+                                                                                                                              "type":  "string"
+                                                                                                                          },
+                                                                                                                          {
+                                                                                                                              "type":  "null"
+                                                                                                                          }
+                                                                                                                      ],
+                                                                                                            "title":  "Authorization"
+                                                                                                        }
+                                                                                         }
+                                                                                     ],
+                                                                      "requestBody":  {
+                                                                                          "required":  true,
+                                                                                          "content":  {
+                                                                                                          "application/json":  {
+                                                                                                                                   "schema":  {
+                                                                                                                                                  "$ref":  "#/components/schemas/WorkflowUpdate"
+                                                                                                                                              }
+                                                                                                                               }
+                                                                                                      }
+                                                                                      },
+                                                                      "responses":  {
+                                                                                        "200":  {
+                                                                                                    "description":  "Successful Response",
+                                                                                                    "content":  {
+                                                                                                                    "application/json":  {
+                                                                                                                                             "schema":  {
+                                                                                                                                                            "$ref":  "#/components/schemas/WorkflowResponse"
+                                                                                                                                                        }
+                                                                                                                                         }
+                                                                                                                }
+                                                                                                },
+                                                                                        "422":  {
+                                                                                                    "description":  "Validation Error",
+                                                                                                    "content":  {
+                                                                                                                    "application/json":  {
+                                                                                                                                             "schema":  {
+                                                                                                                                                            "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                                        }
+                                                                                                                                         }
+                                                                                                                }
+                                                                                                }
+                                                                                    }
+                                                                  },
+                                                          "delete":  {
+                                                                         "tags":  [
+                                                                                      "Workflows"
+                                                                                  ],
+                                                                         "summary":  "Delete Workflow",
+                                                                         "operationId":  "delete_workflow_api_v1_workflows__workflow_id__delete",
+                                                                         "parameters":  [
+                                                                                            {
+                                                                                                "name":  "workflow_id",
+                                                                                                "in":  "path",
+                                                                                                "required":  true,
+                                                                                                "schema":  {
+                                                                                                               "type":  "integer",
+                                                                                                               "title":  "Workflow Id"
+                                                                                                           }
+                                                                                            },
+                                                                                            {
+                                                                                                "name":  "authorization",
+                                                                                                "in":  "header",
+                                                                                                "required":  false,
+                                                                                                "schema":  {
+                                                                                                               "anyOf":  [
+                                                                                                                             {
+                                                                                                                                 "type":  "string"
+                                                                                                                             },
+                                                                                                                             {
+                                                                                                                                 "type":  "null"
+                                                                                                                             }
+                                                                                                                         ],
+                                                                                                               "title":  "Authorization"
+                                                                                                           }
+                                                                                            }
+                                                                                        ],
+                                                                         "responses":  {
+                                                                                           "204":  {
+                                                                                                       "description":  "Successful Response"
+                                                                                                   },
+                                                                                           "422":  {
+                                                                                                       "description":  "Validation Error",
+                                                                                                       "content":  {
+                                                                                                                       "application/json":  {
+                                                                                                                                                "schema":  {
+                                                                                                                                                               "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                                           }
+                                                                                                                                            }
+                                                                                                                   }
+                                                                                                   }
+                                                                                       }
+                                                                     }
+                                                      },
+                  "/api/v1/github/repositories/{owner}/{repo}":  {
+                                                                     "get":  {
+                                                                                 "tags":  [
+                                                                                              "GitHub Integration"
+                                                                                          ],
+                                                                                 "summary":  "Analyze Repository",
+                                                                                 "description":  "Retrieve GitHub repository information.",
+                                                                                 "operationId":  "analyze_repository_api_v1_github_repositories__owner___repo__get",
+                                                                                 "parameters":  [
+                                                                                                    {
+                                                                                                        "name":  "owner",
+                                                                                                        "in":  "path",
+                                                                                                        "required":  true,
+                                                                                                        "schema":  {
+                                                                                                                       "type":  "string",
+                                                                                                                       "title":  "Owner"
+                                                                                                                   }
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "name":  "repo",
+                                                                                                        "in":  "path",
+                                                                                                        "required":  true,
+                                                                                                        "schema":  {
+                                                                                                                       "type":  "string",
+                                                                                                                       "title":  "Repo"
+                                                                                                                   }
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "name":  "authorization",
+                                                                                                        "in":  "header",
+                                                                                                        "required":  false,
+                                                                                                        "schema":  {
+                                                                                                                       "anyOf":  [
+                                                                                                                                     {
+                                                                                                                                         "type":  "string"
+                                                                                                                                     },
+                                                                                                                                     {
+                                                                                                                                         "type":  "null"
+                                                                                                                                     }
+                                                                                                                                 ],
+                                                                                                                       "title":  "Authorization"
+                                                                                                                   }
+                                                                                                    }
+                                                                                                ],
+                                                                                 "responses":  {
+                                                                                                   "200":  {
+                                                                                                               "description":  "Successful Response",
+                                                                                                               "content":  {
+                                                                                                                               "application/json":  {
+                                                                                                                                                        "schema":  {
+
+                                                                                                                                                                   }
+                                                                                                                                                    }
+                                                                                                                           }
+                                                                                                           },
+                                                                                                   "422":  {
+                                                                                                               "description":  "Validation Error",
+                                                                                                               "content":  {
+                                                                                                                               "application/json":  {
+                                                                                                                                                        "schema":  {
+                                                                                                                                                                       "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                                                   }
+                                                                                                                                                    }
+                                                                                                                           }
+                                                                                                           }
+                                                                                               }
+                                                                             }
+                                                                 },
+                  "/api/v1/github/repositories/{owner}/{repo}/commits":  {
+                                                                             "get":  {
+                                                                                         "tags":  [
+                                                                                                      "GitHub Integration"
+                                                                                                  ],
+                                                                                         "summary":  "Analyze Commits",
+                                                                                         "description":  "Retrieve repository commits with pagination.",
+                                                                                         "operationId":  "analyze_commits_api_v1_github_repositories__owner___repo__commits_get",
+                                                                                         "parameters":  [
+                                                                                                            {
+                                                                                                                "name":  "owner",
+                                                                                                                "in":  "path",
+                                                                                                                "required":  true,
+                                                                                                                "schema":  {
+                                                                                                                               "type":  "string",
+                                                                                                                               "title":  "Owner"
+                                                                                                                           }
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "name":  "repo",
+                                                                                                                "in":  "path",
+                                                                                                                "required":  true,
+                                                                                                                "schema":  {
+                                                                                                                               "type":  "string",
+                                                                                                                               "title":  "Repo"
+                                                                                                                           }
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "name":  "per_page",
+                                                                                                                "in":  "query",
+                                                                                                                "required":  false,
+                                                                                                                "schema":  {
+                                                                                                                               "type":  "integer",
+                                                                                                                               "maximum":  100,
+                                                                                                                               "minimum":  1,
+                                                                                                                               "default":  10,
+                                                                                                                               "title":  "Per Page"
+                                                                                                                           }
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "name":  "page",
+                                                                                                                "in":  "query",
+                                                                                                                "required":  false,
+                                                                                                                "schema":  {
+                                                                                                                               "type":  "integer",
+                                                                                                                               "minimum":  1,
+                                                                                                                               "default":  1,
+                                                                                                                               "title":  "Page"
+                                                                                                                           }
+                                                                                                            },
+                                                                                                            {
+                                                                                                                "name":  "authorization",
+                                                                                                                "in":  "header",
+                                                                                                                "required":  false,
+                                                                                                                "schema":  {
+                                                                                                                               "anyOf":  [
+                                                                                                                                             {
+                                                                                                                                                 "type":  "string"
+                                                                                                                                             },
+                                                                                                                                             {
+                                                                                                                                                 "type":  "null"
+                                                                                                                                             }
+                                                                                                                                         ],
+                                                                                                                               "title":  "Authorization"
+                                                                                                                           }
+                                                                                                            }
+                                                                                                        ],
+                                                                                         "responses":  {
+                                                                                                           "200":  {
+                                                                                                                       "description":  "Successful Response",
+                                                                                                                       "content":  {
+                                                                                                                                       "application/json":  {
+                                                                                                                                                                "schema":  {
+
+                                                                                                                                                                           }
+                                                                                                                                                            }
+                                                                                                                                   }
+                                                                                                                   },
+                                                                                                           "422":  {
+                                                                                                                       "description":  "Validation Error",
+                                                                                                                       "content":  {
+                                                                                                                                       "application/json":  {
+                                                                                                                                                                "schema":  {
+                                                                                                                                                                               "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                                                           }
+                                                                                                                                                            }
+                                                                                                                                   }
+                                                                                                                   }
+                                                                                                       }
+                                                                                     }
+                                                                         },
+                  "/api/v1/github/repositories/{owner}/{repo}/pulls/{pull_number}":  {
+                                                                                         "get":  {
+                                                                                                     "tags":  [
+                                                                                                                  "GitHub Integration"
+                                                                                                              ],
+                                                                                                     "summary":  "Analyze Pull Request",
+                                                                                                     "description":  "Retrieve pull request details and changed files.",
+                                                                                                     "operationId":  "analyze_pull_request_api_v1_github_repositories__owner___repo__pulls__pull_number__get",
+                                                                                                     "parameters":  [
+                                                                                                                        {
+                                                                                                                            "name":  "owner",
+                                                                                                                            "in":  "path",
+                                                                                                                            "required":  true,
+                                                                                                                            "schema":  {
+                                                                                                                                           "type":  "string",
+                                                                                                                                           "title":  "Owner"
+                                                                                                                                       }
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                            "name":  "repo",
+                                                                                                                            "in":  "path",
+                                                                                                                            "required":  true,
+                                                                                                                            "schema":  {
+                                                                                                                                           "type":  "string",
+                                                                                                                                           "title":  "Repo"
+                                                                                                                                       }
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                            "name":  "pull_number",
+                                                                                                                            "in":  "path",
+                                                                                                                            "required":  true,
+                                                                                                                            "schema":  {
+                                                                                                                                           "type":  "integer",
+                                                                                                                                           "title":  "Pull Number"
+                                                                                                                                       }
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                            "name":  "per_page",
+                                                                                                                            "in":  "query",
+                                                                                                                            "required":  false,
+                                                                                                                            "schema":  {
+                                                                                                                                           "type":  "integer",
+                                                                                                                                           "maximum":  100,
+                                                                                                                                           "minimum":  1,
+                                                                                                                                           "default":  30,
+                                                                                                                                           "title":  "Per Page"
+                                                                                                                                       }
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                            "name":  "page",
+                                                                                                                            "in":  "query",
+                                                                                                                            "required":  false,
+                                                                                                                            "schema":  {
+                                                                                                                                           "type":  "integer",
+                                                                                                                                           "minimum":  1,
+                                                                                                                                           "default":  1,
+                                                                                                                                           "title":  "Page"
+                                                                                                                                       }
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                            "name":  "authorization",
+                                                                                                                            "in":  "header",
+                                                                                                                            "required":  false,
+                                                                                                                            "schema":  {
+                                                                                                                                           "anyOf":  [
+                                                                                                                                                         {
+                                                                                                                                                             "type":  "string"
+                                                                                                                                                         },
+                                                                                                                                                         {
+                                                                                                                                                             "type":  "null"
+                                                                                                                                                         }
+                                                                                                                                                     ],
+                                                                                                                                           "title":  "Authorization"
+                                                                                                                                       }
+                                                                                                                        }
+                                                                                                                    ],
+                                                                                                     "responses":  {
+                                                                                                                       "200":  {
+                                                                                                                                   "description":  "Successful Response",
+                                                                                                                                   "content":  {
+                                                                                                                                                   "application/json":  {
+                                                                                                                                                                            "schema":  {
+
+                                                                                                                                                                                       }
+                                                                                                                                                                        }
+                                                                                                                                               }
+                                                                                                                               },
+                                                                                                                       "422":  {
+                                                                                                                                   "description":  "Validation Error",
+                                                                                                                                   "content":  {
+                                                                                                                                                   "application/json":  {
+                                                                                                                                                                            "schema":  {
+                                                                                                                                                                                           "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                                                                       }
+                                                                                                                                                                        }
+                                                                                                                                               }
+                                                                                                                               }
+                                                                                                                   }
+                                                                                                 }
+                                                                                     },
+                  "/api/v1/agents/analyze":  {
+                                                 "post":  {
+                                                              "tags":  [
+                                                                           "AI Agents"
+                                                                       ],
+                                                              "summary":  "Analyze With Agents",
+                                                              "description":  "Execute all three agents and persist their results.\n\nSaves:\n- Workflow information\n- Agent execution logs\n- Generated documentation",
+                                                              "operationId":  "analyze_with_agents_api_v1_agents_analyze_post",
+                                                              "parameters":  [
+                                                                                 {
+                                                                                     "name":  "authorization",
+                                                                                     "in":  "header",
+                                                                                     "required":  false,
+                                                                                     "schema":  {
+                                                                                                    "anyOf":  [
+                                                                                                                  {
+                                                                                                                      "type":  "string"
+                                                                                                                  },
+                                                                                                                  {
+                                                                                                                      "type":  "null"
+                                                                                                                  }
+                                                                                                              ],
+                                                                                                    "title":  "Authorization"
+                                                                                                }
+                                                                                 }
+                                                                             ],
+                                                              "requestBody":  {
+                                                                                  "required":  true,
+                                                                                  "content":  {
+                                                                                                  "application/json":  {
+                                                                                                                           "schema":  {
+                                                                                                                                          "$ref":  "#/components/schemas/AgentInput"
+                                                                                                                                      }
+                                                                                                                       }
+                                                                                              }
+                                                                              },
+                                                              "responses":  {
+                                                                                "200":  {
+                                                                                            "description":  "Successful Response",
+                                                                                            "content":  {
+                                                                                                            "application/json":  {
+                                                                                                                                     "schema":  {
+                                                                                                                                                    "type":  "object",
+                                                                                                                                                    "additionalProperties":  {
+                                                                                                                                                                                 "$ref":  "#/components/schemas/AgentOutput"
+                                                                                                                                                                             },
+                                                                                                                                                    "title":  "Response Analyze With Agents Api V1 Agents Analyze Post"
+                                                                                                                                                }
+                                                                                                                                 }
+                                                                                                        }
+                                                                                        },
+                                                                                "422":  {
+                                                                                            "description":  "Validation Error",
+                                                                                            "content":  {
+                                                                                                            "application/json":  {
+                                                                                                                                     "schema":  {
+                                                                                                                                                    "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                                }
+                                                                                                                                 }
+                                                                                                        }
+                                                                                        }
+                                                                            }
+                                                          }
+                                             },
+                  "/api/v1/documents/{document_id}":  {
+                                                          "get":  {
+                                                                      "tags":  [
+                                                                                   "Documents"
+                                                                               ],
+                                                                      "summary":  "Get Document",
+                                                                      "operationId":  "get_document_api_v1_documents__document_id__get",
+                                                                      "parameters":  [
+                                                                                         {
+                                                                                             "name":  "document_id",
+                                                                                             "in":  "path",
+                                                                                             "required":  true,
+                                                                                             "schema":  {
+                                                                                                            "type":  "integer",
+                                                                                                            "title":  "Document Id"
+                                                                                                        }
+                                                                                         },
+                                                                                         {
+                                                                                             "name":  "authorization",
+                                                                                             "in":  "header",
+                                                                                             "required":  false,
+                                                                                             "schema":  {
+                                                                                                            "anyOf":  [
+                                                                                                                          {
+                                                                                                                              "type":  "string"
+                                                                                                                          },
+                                                                                                                          {
+                                                                                                                              "type":  "null"
+                                                                                                                          }
+                                                                                                                      ],
+                                                                                                            "title":  "Authorization"
+                                                                                                        }
+                                                                                         }
+                                                                                     ],
+                                                                      "responses":  {
+                                                                                        "200":  {
+                                                                                                    "description":  "Successful Response",
+                                                                                                    "content":  {
+                                                                                                                    "application/json":  {
+                                                                                                                                             "schema":  {
+                                                                                                                                                            "$ref":  "#/components/schemas/DocumentResponse"
+                                                                                                                                                        }
+                                                                                                                                         }
+                                                                                                                }
+                                                                                                },
+                                                                                        "422":  {
+                                                                                                    "description":  "Validation Error",
+                                                                                                    "content":  {
+                                                                                                                    "application/json":  {
+                                                                                                                                             "schema":  {
+                                                                                                                                                            "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                                        }
+                                                                                                                                         }
+                                                                                                                }
+                                                                                                }
+                                                                                    }
+                                                                  }
+                                                      },
+                  "/api/v1/documents/{document_id}/approve":  {
+                                                                  "post":  {
+                                                                               "tags":  [
+                                                                                            "Documents"
+                                                                                        ],
+                                                                               "summary":  "Approve Document",
+                                                                               "operationId":  "approve_document_api_v1_documents__document_id__approve_post",
+                                                                               "parameters":  [
+                                                                                                  {
+                                                                                                      "name":  "document_id",
+                                                                                                      "in":  "path",
+                                                                                                      "required":  true,
+                                                                                                      "schema":  {
+                                                                                                                     "type":  "integer",
+                                                                                                                     "title":  "Document Id"
+                                                                                                                 }
+                                                                                                  },
+                                                                                                  {
+                                                                                                      "name":  "authorization",
+                                                                                                      "in":  "header",
+                                                                                                      "required":  false,
+                                                                                                      "schema":  {
+                                                                                                                     "anyOf":  [
+                                                                                                                                   {
+                                                                                                                                       "type":  "string"
+                                                                                                                                   },
+                                                                                                                                   {
+                                                                                                                                       "type":  "null"
+                                                                                                                                   }
+                                                                                                                               ],
+                                                                                                                     "title":  "Authorization"
+                                                                                                                 }
+                                                                                                  }
+                                                                                              ],
+                                                                               "requestBody":  {
+                                                                                                   "required":  true,
+                                                                                                   "content":  {
+                                                                                                                   "application/json":  {
+                                                                                                                                            "schema":  {
+                                                                                                                                                           "$ref":  "#/components/schemas/DocumentApprovalRequest"
+                                                                                                                                                       }
+                                                                                                                                        }
+                                                                                                               }
+                                                                                               },
+                                                                               "responses":  {
+                                                                                                 "200":  {
+                                                                                                             "description":  "Successful Response",
+                                                                                                             "content":  {
+                                                                                                                             "application/json":  {
+                                                                                                                                                      "schema":  {
+                                                                                                                                                                     "$ref":  "#/components/schemas/DocumentResponse"
+                                                                                                                                                                 }
+                                                                                                                                                  }
+                                                                                                                         }
+                                                                                                         },
+                                                                                                 "422":  {
+                                                                                                             "description":  "Validation Error",
+                                                                                                             "content":  {
+                                                                                                                             "application/json":  {
+                                                                                                                                                      "schema":  {
+                                                                                                                                                                     "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                                                 }
+                                                                                                                                                  }
+                                                                                                                         }
+                                                                                                         }
+                                                                                             }
+                                                                           }
+                                                              },
+                  "/api/v1/documents/{document_id}/reject":  {
+                                                                 "post":  {
+                                                                              "tags":  [
+                                                                                           "Documents"
+                                                                                       ],
+                                                                              "summary":  "Reject Document",
+                                                                              "operationId":  "reject_document_api_v1_documents__document_id__reject_post",
+                                                                              "parameters":  [
+                                                                                                 {
+                                                                                                     "name":  "document_id",
+                                                                                                     "in":  "path",
+                                                                                                     "required":  true,
+                                                                                                     "schema":  {
+                                                                                                                    "type":  "integer",
+                                                                                                                    "title":  "Document Id"
+                                                                                                                }
+                                                                                                 },
+                                                                                                 {
+                                                                                                     "name":  "authorization",
+                                                                                                     "in":  "header",
+                                                                                                     "required":  false,
+                                                                                                     "schema":  {
+                                                                                                                    "anyOf":  [
+                                                                                                                                  {
+                                                                                                                                      "type":  "string"
+                                                                                                                                  },
+                                                                                                                                  {
+                                                                                                                                      "type":  "null"
+                                                                                                                                  }
+                                                                                                                              ],
+                                                                                                                    "title":  "Authorization"
+                                                                                                                }
+                                                                                                 }
+                                                                                             ],
+                                                                              "requestBody":  {
+                                                                                                  "required":  true,
+                                                                                                  "content":  {
+                                                                                                                  "application/json":  {
+                                                                                                                                           "schema":  {
+                                                                                                                                                          "$ref":  "#/components/schemas/DocumentRejectionRequest"
+                                                                                                                                                      }
+                                                                                                                                       }
+                                                                                                              }
+                                                                                              },
+                                                                              "responses":  {
+                                                                                                "200":  {
+                                                                                                            "description":  "Successful Response",
+                                                                                                            "content":  {
+                                                                                                                            "application/json":  {
+                                                                                                                                                     "schema":  {
+                                                                                                                                                                    "$ref":  "#/components/schemas/DocumentResponse"
+                                                                                                                                                                }
+                                                                                                                                                 }
+                                                                                                                        }
+                                                                                                        },
+                                                                                                "422":  {
+                                                                                                            "description":  "Validation Error",
+                                                                                                            "content":  {
+                                                                                                                            "application/json":  {
+                                                                                                                                                     "schema":  {
+                                                                                                                                                                    "$ref":  "#/components/schemas/HTTPValidationError"
+                                                                                                                                                                }
+                                                                                                                                                 }
+                                                                                                                        }
+                                                                                                        }
+                                                                                            }
+                                                                          }
+                                                             },
+                  "/":  {
+                            "get":  {
+                                        "summary":  "Home",
+                                        "operationId":  "home__get",
+                                        "responses":  {
+                                                          "200":  {
+                                                                      "description":  "Successful Response",
+                                                                      "content":  {
+                                                                                      "application/json":  {
+                                                                                                               "schema":  {
+
+                                                                                                                          }
+                                                                                                           }
+                                                                                  }
+                                                                  }
+                                                      }
+                                    }
+                        },
+                  "/health":  {
+                                  "get":  {
+                                              "summary":  "Health Check",
+                                              "operationId":  "health_check_health_get",
+                                              "responses":  {
+                                                                "200":  {
+                                                                            "description":  "Successful Response",
+                                                                            "content":  {
+                                                                                            "application/json":  {
+                                                                                                                     "schema":  {
+
+                                                                                                                                }
+                                                                                                                 }
+                                                                                        }
+                                                                        }
+                                                            }
+                                          }
+                              },
+                  "/api/v1/info":  {
+                                       "get":  {
+                                                   "summary":  "Project Info",
+                                                   "operationId":  "project_info_api_v1_info_get",
+                                                   "responses":  {
+                                                                     "200":  {
+                                                                                 "description":  "Successful Response",
+                                                                                 "content":  {
+                                                                                                 "application/json":  {
+                                                                                                                          "schema":  {
+
+                                                                                                                                     }
+                                                                                                                      }
+                                                                                             }
+                                                                             }
+                                                                 }
+                                               }
+                                   }
+              },
+    "components":  {
+                       "schemas":  {
+                                       "AgentInput":  {
+                                                          "properties":  {
+                                                                             "workflow_id":  {
+                                                                                                 "anyOf":  [
+                                                                                                               {
+                                                                                                                   "type":  "integer",
+                                                                                                                   "minimum":  1.0
+                                                                                                               },
+                                                                                                               {
+                                                                                                                   "type":  "null"
+                                                                                                               }
+                                                                                                           ],
+                                                                                                 "title":  "Workflow Id"
+                                                                                             },
+                                                                             "task":  {
+                                                                                          "type":  "string",
+                                                                                          "maxLength":  5000,
+                                                                                          "minLength":  1,
+                                                                                          "title":  "Task"
+                                                                                      },
+                                                                             "source_type":  {
+                                                                                                 "anyOf":  [
+                                                                                                               {
+                                                                                                                   "type":  "string",
+                                                                                                                   "enum":  [
+                                                                                                                                "github_repository",
+                                                                                                                                "github_pull_request",
+                                                                                                                                "github_commits",
+                                                                                                                                "team_update",
+                                                                                                                                "manual"
+                                                                                                                            ]
+                                                                                                               },
+                                                                                                               {
+                                                                                                                   "type":  "null"
+                                                                                                               }
+                                                                                                           ],
+                                                                                                 "title":  "Source Type"
+                                                                                             },
+                                                                             "source_reference":  {
+                                                                                                      "anyOf":  [
+                                                                                                                    {
+                                                                                                                        "type":  "string"
+                                                                                                                    },
+                                                                                                                    {
+                                                                                                                        "type":  "null"
+                                                                                                                    }
+                                                                                                                ],
+                                                                                                      "title":  "Source Reference"
+                                                                                                  },
+                                                                             "context":  {
+                                                                                             "additionalProperties":  true,
+                                                                                             "type":  "object",
+                                                                                             "title":  "Context"
+                                                                                         }
+                                                                         },
+                                                          "additionalProperties":  false,
+                                                          "type":  "object",
+                                                          "required":  [
+                                                                           "task"
+                                                                       ],
+                                                          "title":  "AgentInput",
+                                                          "description":  "Standard input accepted by an AI agent."
+                                                      },
+                                       "AgentLogResponse":  {
+                                                                "properties":  {
+                                                                                   "id":  {
+                                                                                              "type":  "integer",
+                                                                                              "title":  "Id"
+                                                                                          },
+                                                                                   "agent_name":  {
+                                                                                                      "type":  "string",
+                                                                                                      "title":  "Agent Name"
+                                                                                                  },
+                                                                                   "status":  {
+                                                                                                  "type":  "string",
+                                                                                                  "title":  "Status"
+                                                                                              },
+                                                                                   "input_summary":  {
+                                                                                                         "anyOf":  [
+                                                                                                                       {
+                                                                                                                           "type":  "string"
+                                                                                                                       },
+                                                                                                                       {
+                                                                                                                           "type":  "null"
+                                                                                                                       }
+                                                                                                                   ],
+                                                                                                         "title":  "Input Summary"
+                                                                                                     },
+                                                                                   "output_summary":  {
+                                                                                                          "anyOf":  [
+                                                                                                                        {
+                                                                                                                            "type":  "string"
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                            "type":  "null"
+                                                                                                                        }
+                                                                                                                    ],
+                                                                                                          "title":  "Output Summary"
+                                                                                                      },
+                                                                                   "error_message":  {
+                                                                                                         "anyOf":  [
+                                                                                                                       {
+                                                                                                                           "type":  "string"
+                                                                                                                       },
+                                                                                                                       {
+                                                                                                                           "type":  "null"
+                                                                                                                       }
+                                                                                                                   ],
+                                                                                                         "title":  "Error Message"
+                                                                                                     },
+                                                                                   "started_at":  {
+                                                                                                      "type":  "string",
+                                                                                                      "format":  "date-time",
+                                                                                                      "title":  "Started At"
+                                                                                                  },
+                                                                                   "completed_at":  {
+                                                                                                        "anyOf":  [
+                                                                                                                      {
+                                                                                                                          "type":  "string",
+                                                                                                                          "format":  "date-time"
+                                                                                                                      },
+                                                                                                                      {
+                                                                                                                          "type":  "null"
+                                                                                                                      }
+                                                                                                                  ],
+                                                                                                        "title":  "Completed At"
+                                                                                                    }
+                                                                               },
+                                                                "type":  "object",
+                                                                "required":  [
+                                                                                 "id",
+                                                                                 "agent_name",
+                                                                                 "status",
+                                                                                 "started_at"
+                                                                             ],
+                                                                "title":  "AgentLogResponse"
+                                                            },
+                                       "AgentName":  {
+                                                         "type":  "string",
+                                                         "enum":  [
+                                                                      "documentation",
+                                                                      "code_review",
+                                                                      "team_intelligence"
+                                                                  ],
+                                                         "title":  "AgentName"
+                                                     },
+                                       "AgentOutput":  {
+                                                           "properties":  {
+                                                                              "agent_name":  {
+                                                                                                 "$ref":  "#/components/schemas/AgentName"
+                                                                                             },
+                                                                              "status":  {
+                                                                                             "$ref":  "#/components/schemas/AgentStatus"
+                                                                                         },
+                                                                              "result":  {
+                                                                                             "anyOf":  [
+                                                                                                           {
+                                                                                                               "additionalProperties":  true,
+                                                                                                               "type":  "object"
+                                                                                                           },
+                                                                                                           {
+                                                                                                               "type":  "null"
+                                                                                                           }
+                                                                                                       ],
+                                                                                             "title":  "Result"
+                                                                                         },
+                                                                              "error":  {
+                                                                                            "anyOf":  [
+                                                                                                          {
+                                                                                                              "type":  "string"
+                                                                                                          },
+                                                                                                          {
+                                                                                                              "type":  "null"
+                                                                                                          }
+                                                                                                      ],
+                                                                                            "title":  "Error"
+                                                                                        },
+                                                                              "execution_time_ms":  {
+                                                                                                        "anyOf":  [
+                                                                                                                      {
+                                                                                                                          "type":  "number",
+                                                                                                                          "minimum":  0.0
+                                                                                                                      },
+                                                                                                                      {
+                                                                                                                          "type":  "null"
+                                                                                                                      }
+                                                                                                                  ],
+                                                                                                        "title":  "Execution Time Ms"
+                                                                                                    }
+                                                                          },
+                                                           "additionalProperties":  false,
+                                                           "type":  "object",
+                                                           "required":  [
+                                                                            "agent_name",
+                                                                            "status"
+                                                                        ],
+                                                           "title":  "AgentOutput",
+                                                           "description":  "Standard response returned by an AI agent."
+                                                       },
+                                       "AgentStatus":  {
+                                                           "type":  "string",
+                                                           "enum":  [
+                                                                        "PENDING",
+                                                                        "RUNNING",
+                                                                        "COMPLETED",
+                                                                        "FAILED"
+                                                                    ],
+                                                           "title":  "AgentStatus"
+                                                       },
+                                       "DocumentApprovalRequest":  {
+                                                                       "properties":  {
+                                                                                          "reviewed_by":  {
+                                                                                                              "anyOf":  [
+                                                                                                                            {
+                                                                                                                                "type":  "string",
+                                                                                                                                "maxLength":  255
+                                                                                                                            },
+                                                                                                                            {
+                                                                                                                                "type":  "null"
+                                                                                                                            }
+                                                                                                                        ],
+                                                                                                              "title":  "Reviewed By"
+                                                                                                          }
+                                                                                      },
+                                                                       "type":  "object",
+                                                                       "title":  "DocumentApprovalRequest",
+                                                                       "description":  "Approval payload.\n\n`reviewed_by` is optional for backward compatibility and is ignored.\nThe stored reviewer is always taken from the authenticated principal."
+                                                                   },
+                                       "DocumentRejectionRequest":  {
+                                                                        "properties":  {
+                                                                                           "reviewed_by":  {
+                                                                                                               "anyOf":  [
+                                                                                                                             {
+                                                                                                                                 "type":  "string",
+                                                                                                                                 "maxLength":  255
+                                                                                                                             },
+                                                                                                                             {
+                                                                                                                                 "type":  "null"
+                                                                                                                             }
+                                                                                                                         ],
+                                                                                                               "title":  "Reviewed By"
+                                                                                                           },
+                                                                                           "reason":  {
+                                                                                                          "type":  "string",
+                                                                                                          "maxLength":  2000,
+                                                                                                          "minLength":  5,
+                                                                                                          "title":  "Reason"
+                                                                                                      }
+                                                                                       },
+                                                                        "type":  "object",
+                                                                        "required":  [
+                                                                                         "reason"
+                                                                                     ],
+                                                                        "title":  "DocumentRejectionRequest",
+                                                                        "description":  "Rejection payload.\n\n`reviewed_by` is optional for backward compatibility and is ignored.\nThe stored reviewer is always taken from the authenticated principal."
+                                                                    },
+                                       "DocumentResponse":  {
+                                                                "properties":  {
+                                                                                   "id":  {
+                                                                                              "type":  "integer",
+                                                                                              "title":  "Id"
+                                                                                          },
+                                                                                   "workflow_id":  {
+                                                                                                       "type":  "integer",
+                                                                                                       "title":  "Workflow Id"
+                                                                                                   },
+                                                                                   "title":  {
+                                                                                                 "type":  "string",
+                                                                                                 "title":  "Title"
+                                                                                             },
+                                                                                   "document_type":  {
+                                                                                                         "type":  "string",
+                                                                                                         "title":  "Document Type"
+                                                                                                     },
+                                                                                   "content":  {
+                                                                                                   "type":  "string",
+                                                                                                   "title":  "Content"
+                                                                                               },
+                                                                                   "created_at":  {
+                                                                                                      "type":  "string",
+                                                                                                      "format":  "date-time",
+                                                                                                      "title":  "Created At"
+                                                                                                  },
+                                                                                   "approval_status":  {
+                                                                                                           "type":  "string",
+                                                                                                           "title":  "Approval Status"
+                                                                                                       },
+                                                                                   "reviewed_by":  {
+                                                                                                       "anyOf":  [
+                                                                                                                     {
+                                                                                                                         "type":  "string"
+                                                                                                                     },
+                                                                                                                     {
+                                                                                                                         "type":  "null"
+                                                                                                                     }
+                                                                                                                 ],
+                                                                                                       "title":  "Reviewed By"
+                                                                                                   },
+                                                                                   "reviewed_at":  {
+                                                                                                       "anyOf":  [
+                                                                                                                     {
+                                                                                                                         "type":  "string",
+                                                                                                                         "format":  "date-time"
+                                                                                                                     },
+                                                                                                                     {
+                                                                                                                         "type":  "null"
+                                                                                                                     }
+                                                                                                                 ],
+                                                                                                       "title":  "Reviewed At"
+                                                                                                   },
+                                                                                   "approval_reason":  {
+                                                                                                           "anyOf":  [
+                                                                                                                         {
+                                                                                                                             "type":  "string"
+                                                                                                                         },
+                                                                                                                         {
+                                                                                                                             "type":  "null"
+                                                                                                                         }
+                                                                                                                     ],
+                                                                                                           "title":  "Approval Reason"
+                                                                                                       }
+                                                                               },
+                                                                "type":  "object",
+                                                                "required":  [
+                                                                                 "id",
+                                                                                 "workflow_id",
+                                                                                 "title",
+                                                                                 "document_type",
+                                                                                 "content",
+                                                                                 "created_at",
+                                                                                 "approval_status"
+                                                                             ],
+                                                                "title":  "DocumentResponse"
+                                                            },
+                                       "HTTPValidationError":  {
+                                                                   "properties":  {
+                                                                                      "detail":  {
+                                                                                                     "items":  {
+                                                                                                                   "$ref":  "#/components/schemas/ValidationError"
+                                                                                                               },
+                                                                                                     "type":  "array",
+                                                                                                     "title":  "Detail"
+                                                                                                 }
+                                                                                  },
+                                                                   "type":  "object",
+                                                                   "title":  "HTTPValidationError"
+                                                               },
+                                       "ValidationError":  {
+                                                               "properties":  {
+                                                                                  "loc":  {
+                                                                                              "items":  {
+                                                                                                            "anyOf":  [
+                                                                                                                          {
+                                                                                                                              "type":  "string"
+                                                                                                                          },
+                                                                                                                          {
+                                                                                                                              "type":  "integer"
+                                                                                                                          }
+                                                                                                                      ]
+                                                                                                        },
+                                                                                              "type":  "array",
+                                                                                              "title":  "Location"
+                                                                                          },
+                                                                                  "msg":  {
+                                                                                              "type":  "string",
+                                                                                              "title":  "Message"
+                                                                                          },
+                                                                                  "type":  {
+                                                                                               "type":  "string",
+                                                                                               "title":  "Error Type"
+                                                                                           },
+                                                                                  "input":  {
+                                                                                                "title":  "Input"
+                                                                                            },
+                                                                                  "ctx":  {
+                                                                                              "type":  "object",
+                                                                                              "title":  "Context"
+                                                                                          }
+                                                                              },
+                                                               "type":  "object",
+                                                               "required":  [
+                                                                                "loc",
+                                                                                "msg",
+                                                                                "type"
+                                                                            ],
+                                                               "title":  "ValidationError"
+                                                           },
+                                       "WorkflowCreate":  {
+                                                              "properties":  {
+                                                                                 "title":  {
+                                                                                               "type":  "string",
+                                                                                               "minLength":  1,
+                                                                                               "title":  "Title"
+                                                                                           },
+                                                                                 "description":  {
+                                                                                                     "anyOf":  [
+                                                                                                                   {
+                                                                                                                       "type":  "string"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "type":  "null"
+                                                                                                                   }
+                                                                                                               ],
+                                                                                                     "title":  "Description"
+                                                                                                 },
+                                                                                 "source_type":  {
+                                                                                                     "anyOf":  [
+                                                                                                                   {
+                                                                                                                       "type":  "string"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "type":  "null"
+                                                                                                                   }
+                                                                                                               ],
+                                                                                                     "title":  "Source Type"
+                                                                                                 },
+                                                                                 "source_reference":  {
+                                                                                                          "anyOf":  [
+                                                                                                                        {
+                                                                                                                            "type":  "string"
+                                                                                                                        },
+                                                                                                                        {
+                                                                                                                            "type":  "null"
+                                                                                                                        }
+                                                                                                                    ],
+                                                                                                          "title":  "Source Reference"
+                                                                                                      }
+                                                                             },
+                                                              "type":  "object",
+                                                              "required":  [
+                                                                               "title"
+                                                                           ],
+                                                              "title":  "WorkflowCreate"
+                                                          },
+                                       "WorkflowDetailResponse":  {
+                                                                      "properties":  {
+                                                                                         "id":  {
+                                                                                                    "type":  "integer",
+                                                                                                    "title":  "Id"
+                                                                                                },
+                                                                                         "title":  {
+                                                                                                       "type":  "string",
+                                                                                                       "title":  "Title"
+                                                                                                   },
+                                                                                         "description":  {
+                                                                                                             "anyOf":  [
+                                                                                                                           {
+                                                                                                                               "type":  "string"
+                                                                                                                           },
+                                                                                                                           {
+                                                                                                                               "type":  "null"
+                                                                                                                           }
+                                                                                                                       ],
+                                                                                                             "title":  "Description"
+                                                                                                         },
+                                                                                         "status":  {
+                                                                                                        "type":  "string",
+                                                                                                        "title":  "Status"
+                                                                                                    },
+                                                                                         "source_type":  {
+                                                                                                             "anyOf":  [
+                                                                                                                           {
+                                                                                                                               "type":  "string"
+                                                                                                                           },
+                                                                                                                           {
+                                                                                                                               "type":  "null"
+                                                                                                                           }
+                                                                                                                       ],
+                                                                                                             "title":  "Source Type"
+                                                                                                         },
+                                                                                         "source_reference":  {
+                                                                                                                  "anyOf":  [
+                                                                                                                                {
+                                                                                                                                    "type":  "string"
+                                                                                                                                },
+                                                                                                                                {
+                                                                                                                                    "type":  "null"
+                                                                                                                                }
+                                                                                                                            ],
+                                                                                                                  "title":  "Source Reference"
+                                                                                                              },
+                                                                                         "created_at":  {
+                                                                                                            "type":  "string",
+                                                                                                            "format":  "date-time",
+                                                                                                            "title":  "Created At"
+                                                                                                        },
+                                                                                         "updated_at":  {
+                                                                                                            "type":  "string",
+                                                                                                            "format":  "date-time",
+                                                                                                            "title":  "Updated At"
+                                                                                                        },
+                                                                                         "agent_logs":  {
+                                                                                                            "items":  {
+                                                                                                                          "$ref":  "#/components/schemas/AgentLogResponse"
+                                                                                                                      },
+                                                                                                            "type":  "array",
+                                                                                                            "title":  "Agent Logs"
+                                                                                                        },
+                                                                                         "documents":  {
+                                                                                                           "items":  {
+                                                                                                                         "$ref":  "#/components/schemas/DocumentResponse"
+                                                                                                                     },
+                                                                                                           "type":  "array",
+                                                                                                           "title":  "Documents"
+                                                                                                       }
+                                                                                     },
+                                                                      "type":  "object",
+                                                                      "required":  [
+                                                                                       "id",
+                                                                                       "title",
+                                                                                       "status",
+                                                                                       "created_at",
+                                                                                       "updated_at"
+                                                                                   ],
+                                                                      "title":  "WorkflowDetailResponse"
+                                                                  },
+                                       "WorkflowResponse":  {
+                                                                "properties":  {
+                                                                                   "id":  {
+                                                                                              "type":  "integer",
+                                                                                              "title":  "Id"
+                                                                                          },
+                                                                                   "title":  {
+                                                                                                 "type":  "string",
+                                                                                                 "title":  "Title"
+                                                                                             },
+                                                                                   "description":  {
+                                                                                                       "anyOf":  [
+                                                                                                                     {
+                                                                                                                         "type":  "string"
+                                                                                                                     },
+                                                                                                                     {
+                                                                                                                         "type":  "null"
+                                                                                                                     }
+                                                                                                                 ],
+                                                                                                       "title":  "Description"
+                                                                                                   },
+                                                                                   "status":  {
+                                                                                                  "type":  "string",
+                                                                                                  "title":  "Status"
+                                                                                              }
+                                                                               },
+                                                                "type":  "object",
+                                                                "required":  [
+                                                                                 "id",
+                                                                                 "title",
+                                                                                 "status"
+                                                                             ],
+                                                                "title":  "WorkflowResponse"
+                                                            },
+                                       "WorkflowUpdate":  {
+                                                              "properties":  {
+                                                                                 "title":  {
+                                                                                               "anyOf":  [
+                                                                                                             {
+                                                                                                                 "type":  "string",
+                                                                                                                 "minLength":  1
+                                                                                                             },
+                                                                                                             {
+                                                                                                                 "type":  "null"
+                                                                                                             }
+                                                                                                         ],
+                                                                                               "title":  "Title"
+                                                                                           },
+                                                                                 "description":  {
+                                                                                                     "anyOf":  [
+                                                                                                                   {
+                                                                                                                       "type":  "string"
+                                                                                                                   },
+                                                                                                                   {
+                                                                                                                       "type":  "null"
+                                                                                                                   }
+                                                                                                               ],
+                                                                                                     "title":  "Description"
+                                                                                                 }
+                                                                             },
+                                                              "additionalProperties":  false,
+                                                              "type":  "object",
+                                                              "title":  "WorkflowUpdate"
+                                                          }
+                                   },
+                       "securitySchemes":  {
+                                               "BearerAuth":  {
+                                                                  "type":  "http",
+                                                                  "scheme":  "bearer",
+                                                                  "bearerFormat":  "API Key",
+                                                                  "description":  "Provide a DocuMind API key as a Bearer token. Configure keys via DOCU_MIND_API_KEYS."
+                                                              }
+                                           }
+                   }
+}

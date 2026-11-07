@@ -40,6 +40,28 @@ class Document(Base):
         default=lambda: datetime.now(timezone.utc)
     )
 
+    approval_status: Mapped[str] = mapped_column(
+    String(30),
+    nullable=False,
+    default="PENDING",
+    server_default="PENDING"
+    )
+    reviewed_by: Mapped[str | None] = mapped_column(
+    String(255),
+    nullable=True
+    )
+    reviewed_at: Mapped[datetime | None] = mapped_column(
+    DateTime(timezone=True),
+    nullable=True
+    )
+    approval_reason: Mapped[str | None] = mapped_column(
+    Text,
+    nullable=True
+    )
+
+
+
+
     workflow = relationship(
         "Workflow",
         back_populates="documents"

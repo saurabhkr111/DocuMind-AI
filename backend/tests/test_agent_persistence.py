@@ -106,7 +106,7 @@ def test_persist_successful_agent_results(
     )
 
     assert workflow.id is not None
-    assert workflow.status == "COMPLETED"
+    assert workflow.status == "AWAITING_APPROVAL"
 
     logs = db_session.scalars(
         select(AgentLog).where(
@@ -221,7 +221,7 @@ def test_persist_results_to_existing_workflow(
     )
 
     assert workflow.id == existing_workflow.id
-    assert workflow.status == "COMPLETED"
+    assert workflow.status == "AWAITING_APPROVAL"
 
 
 def test_persist_invalid_workflow_id_rolls_back(

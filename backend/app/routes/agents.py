@@ -6,6 +6,7 @@ from fastapi import (
 )
 from sqlalchemy.orm import Session
 
+from backend.app.auth import Principal, get_current_principal
 from backend.app.database.connection import get_db
 from backend.app.models import Workflow
 from backend.app.orchestrator.agent_orchestrator import AgentOrchestrator
@@ -35,6 +36,7 @@ orchestrator = AgentOrchestrator()
 async def analyze_with_agents(
     agent_input: AgentInput,
     db: Session = Depends(get_db),
+    principal: Principal = Depends(get_current_principal),
 ):
     """
     Execute all three agents and persist their results.

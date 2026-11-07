@@ -1,6 +1,7 @@
 ﻿from fastapi import APIRouter, Depends, HTTPException, Response, status
 from sqlalchemy.orm import Session, selectinload
 
+from backend.app.auth import Principal, get_current_principal
 from backend.app.database.connection import get_db
 from backend.app.models import Workflow
 
@@ -29,7 +30,8 @@ router = APIRouter(
 )
 def create_workflow(
     workflow_data: WorkflowCreate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    principal: Principal = Depends(get_current_principal),
 ):
     try:
         new_workflow = Workflow(
@@ -64,7 +66,8 @@ def create_workflow(
     response_model=list[WorkflowResponse]
 )
 def get_all_workflows(
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    principal: Principal = Depends(get_current_principal),
 ):
     return (
         db.query(Workflow)
@@ -83,7 +86,8 @@ def get_all_workflows(
 )
 def get_workflow_details(
     workflow_id: int,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    principal: Principal = Depends(get_current_principal),
 ):
     workflow = (
         db.query(Workflow)
@@ -114,7 +118,8 @@ def get_workflow_details(
 )
 def get_workflow(
     workflow_id: int,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    principal: Principal = Depends(get_current_principal),
 ):
     workflow = (
         db.query(Workflow)
@@ -142,7 +147,8 @@ def get_workflow(
 def update_workflow(
     workflow_id: int,
     workflow_data: WorkflowUpdate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    principal: Principal = Depends(get_current_principal),
 ):
     workflow = (
         db.query(Workflow)
@@ -179,7 +185,8 @@ def update_workflow(
 )
 def delete_workflow(
     workflow_id: int,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    principal: Principal = Depends(get_current_principal),
 ):
     workflow = (
         db.query(Workflow)

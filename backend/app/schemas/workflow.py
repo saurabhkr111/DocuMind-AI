@@ -1,7 +1,9 @@
 from datetime import datetime
-from typing import Optional, Literal
+from typing import Optional
 
 from pydantic import BaseModel, ConfigDict, Field
+
+from .document import DocumentResponse
 
 
 # -----------------------------------------
@@ -36,18 +38,7 @@ class WorkflowUpdate(BaseModel):
     title: Optional[str] = Field(default=None, min_length=1)
     description: Optional[str] = None
 
-    status: Optional[
-        Literal[
-            "PENDING",
-            "RUNNING",
-            "COMPLETED",
-            "AWAITING_APPROVAL",
-            "APPROVED",
-            "REJECTED",
-            "PARTIAL",
-            "FAILED"
-        ]
-    ] = None
+    model_config = ConfigDict(extra="forbid")
 
 
 # -----------------------------------------
@@ -63,20 +54,6 @@ class AgentLogResponse(BaseModel):
     error_message: Optional[str] = None
     started_at: datetime
     completed_at: Optional[datetime] = None
-
-    model_config = ConfigDict(from_attributes=True)
-
-
-# -----------------------------------------
-# GENERATED DOCUMENT RESPONSE
-# -----------------------------------------
-
-class DocumentResponse(BaseModel):
-    id: int
-    title: str
-    document_type: str
-    content: str
-    created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
 

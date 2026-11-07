@@ -6,11 +6,23 @@ from fastapi.testclient import TestClient
 
 from backend.app.main import app
 from backend.app.routes.github import github_service
+from backend.tests.conftest import apply_test_auth_override
 
-client = TestClient(app)
+
+@pytest.fixture
+def client():
+    previous_overrides = app.dependency_overrides.copy()
+    apply_test_auth_override()
+
+    try:
+        with TestClient(app) as test_client:
+            yield test_client
+    finally:
+        app.dependency_overrides.clear()
+        app.dependency_overrides.update(previous_overrides)
 
 
-def test_repository_success(monkeypatch):
+def test_repository_success(client, monkeypatch):
 
     async def mock_get_repository(owner, repo):
         return {
@@ -33,7 +45,7 @@ def test_repository_success(monkeypatch):
     assert response.json()["full_name"] == "octocat/Hello-World"
 
 
-def test_commits_success(monkeypatch):
+def test_commits_success(client, monkeypatch):
 
     async def mock_get_commits(
         owner,
@@ -65,7 +77,7 @@ def test_commits_success(monkeypatch):
     assert response.json()[0]["sha"] == "abc123"
 
 
-def test_pull_request_success(monkeypatch):
+def test_pull_request_success(client, monkeypatch):
 
     async def mock_get_pull_request(owner, repo, pull_number):
         return {
@@ -118,7 +130,7 @@ def test_pull_request_success(monkeypatch):
     assert response.json()["changed_files"][0]["filename"] == "README.md"
 
 
-def test_pull_request_pagination_parameters(monkeypatch):
+def test_pull_request_pagination_parameters(client, monkeypatch):
 
     captured_parameters = {}
 
@@ -175,7 +187,7 @@ def test_pull_request_pagination_parameters(monkeypatch):
         "?page=-1"
     ]
 )
-def test_invalid_pull_request_pagination(query):
+def test_invalid_pull_request_pagination(client, query):
 
     response = client.get(
         f"/api/v1/github/repositories/octocat/Hello-World/pulls/1{query}"
@@ -184,7 +196,7 @@ def test_invalid_pull_request_pagination(query):
     assert response.status_code == 422
 
 
-def test_invalid_repository_owner():
+def test_invalid_repository_owner(client):
 
     response = client.get(
         "/api/v1/github/repositories/invalid_owner/Hello-World"
@@ -193,7 +205,7 @@ def test_invalid_repository_owner():
     assert response.status_code == 400
 
 
-def test_invalid_commits_per_page():
+def test_invalid_commits_per_page(client):
 
     response = client.get(
         "/api/v1/github/repositories/octocat/Hello-World/commits?per_page=200"
@@ -202,7 +214,7 @@ def test_invalid_commits_per_page():
     assert response.status_code == 422
 
 
-def test_nonexistent_repository(monkeypatch):
+def test_nonexistent_repository(client, monkeypatch):
 
     async def mock_get_repository(owner, repo):
 
@@ -235,7 +247,7 @@ def test_nonexistent_repository(monkeypatch):
     assert response.status_code == 404
 
 
-def test_github_network_error(monkeypatch):
+def test_github_network_error(client, monkeypatch):
 
     async def mock_get_repository(owner, repo):
 
@@ -497,7 +509,7 @@ def create_github_http_error(
     )
 
 
-def test_repository_primary_rate_limit_route(monkeypatch):
+def test_repository_primary_rate_limit_route(client, monkeypatch):
     """Verify structured primary rate-limit response."""
 
     async def mock_get_repository(owner, repo):
@@ -528,7 +540,7 @@ def test_repository_primary_rate_limit_route(monkeypatch):
     assert detail["rate_limit_reset_at"] == "1794000000"
 
 
-def test_commits_secondary_rate_limit_route(monkeypatch):
+def test_commits_secondary_rate_limit_route(client, monkeypatch):
     """Verify structured secondary rate-limit response."""
 
     async def mock_get_commits(
@@ -559,7 +571,7 @@ def test_commits_secondary_rate_limit_route(monkeypatch):
     assert detail["message"] == "GitHub API rate limit exceeded."
 
 
-def test_pull_request_http_429_rate_limit_route(monkeypatch):
+def test_pull_request_http_429_rate_limit_route(client, monkeypatch):
     """Verify HTTP 429 response and retry information."""
 
     async def mock_get_pull_request(
@@ -593,7 +605,7 @@ def test_pull_request_http_429_rate_limit_route(monkeypatch):
     assert detail["retry_after"] == "60"
 
 
-def test_repository_normal_403_route(monkeypatch):
+def test_repository_normal_403_route(client, monkeypatch):
     """Verify normal 403 errors do not appear as rate limits."""
 
     async def mock_get_repository(owner, repo):

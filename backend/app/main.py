@@ -1,13 +1,16 @@
-from contextlib import asynccontextmanager
+﻿from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 
 from fastapi import FastAPI
+from fastapi.openapi.utils import get_openapi
 
 from backend.app.database.connection import init_db
 from backend.app import models
 from backend.app.routes.workflow import router as workflow_router
 from backend.app.routes.github import router as github_router
 from backend.app.routes.agents import router as agents_router
+from backend.app.routes.documents import router as documents_router
+from backend.app.routes.switch import router as switch_router
 
 
 @asynccontextmanager
@@ -31,6 +34,8 @@ app = FastAPI(
 app.include_router(workflow_router)
 app.include_router(github_router)
 app.include_router(agents_router)
+app.include_router(documents_router)
+app.include_router(switch_router)
 
 
 @app.get("/")
@@ -62,6 +67,39 @@ def project_info():
             "Code Review Agent",
             "Team Intelligence Agent"
         ],
-        "orchestrator": "Switch",
+        "orchestrator": "Python AgentOrchestrator",
+        "switch_integration": "webhook_available",
         "backend": "FastAPI"
     }
+
+
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+
+    openapi_schema = get_openapi(
+        title=app.title,
+        version=app.version,
+        description=app.description,
+        routes=app.routes,
+    )
+
+    openapi_schema.setdefault("components", {})
+    openapi_schema["components"]["securitySchemes"] = {
+        "BearerAuth": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "API Key",
+            "description": (
+                "Provide a DocuMind API key as a Bearer token. "
+                "Configure keys via DOCU_MIND_API_KEYS."
+            ),
+        }
+    }
+
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
+
+app.openapi = custom_openapi
+

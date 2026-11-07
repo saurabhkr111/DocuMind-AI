@@ -15,3 +15,42 @@ venv/
 # Testing
 .pytest_cache/
 .coverage
+.env
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Databases and backups
+*.db
+*.sqlite
+*.sqlite3
+*.db-*
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Node
+node_modules/
+frontend/dist/
+
+# Temporary files
+*.backup

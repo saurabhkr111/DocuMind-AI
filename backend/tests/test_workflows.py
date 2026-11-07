@@ -12,6 +12,9 @@ from backend.app.main import app
 from backend.app.database.base import Base
 from backend.app.database.connection import get_db
 from backend.app.models import AgentLog, Document
+from backend.tests.conftest import (
+    apply_test_auth_override,
+)
 
 
 # =========================================
@@ -61,6 +64,7 @@ def client():
     previous_overrides = app.dependency_overrides.copy()
 
     app.dependency_overrides[get_db] = override_get_db
+    apply_test_auth_override()
 
     try:
         with TestClient(app) as test_client:
@@ -99,13 +103,21 @@ def test_health_check(client):
 
 # TEST 3: Project information
 def test_project_info(client):
-
     response = client.get("/api/v1/info")
 
     assert response.status_code == 200
-    assert response.json()["project_name"] == "DocuMind AI"
-    assert len(response.json()["agents"]) == 3
 
+    data = response.json()
+
+    assert data["project_name"] == "DocuMind AI"
+    assert data["version"] == "1.0.0"
+    assert data["backend"] == "FastAPI"
+    assert data["orchestrator"] == "Python AgentOrchestrator"
+    assert data["switch_integration"] == "pending"
+
+    assert "Documentation Agent" in data["agents"]
+    assert "Code Review Agent" in data["agents"]
+    assert "Team Intelligence Agent" in data["agents"]
 
 # =========================================
 # WORKFLOW CRUD TESTS
@@ -193,13 +205,46 @@ def test_update_workflow(client):
     response = client.put(
         f"/api/v1/workflows/{workflow_id}",
         json={
-            "status": "RUNNING"
+            "title": "Updated Test",
+            "description": "After update"
         }
     )
 
     assert response.status_code == 200
-    assert response.json()["status"] == "RUNNING"
+    assert response.json()["title"] == "Updated Test"
+    assert response.json()["description"] == "After update"
+    assert response.json()["status"] == "PENDING"
 
+def test_update_workflow_rejects_status_change(client):
+
+    create_response = client.post(
+        "/api/v1/workflows/",
+        json={
+            "title": "Security Test",
+            "description": "Testing status protection"
+        }
+    )
+
+    assert create_response.status_code == 201
+
+    workflow_id = create_response.json()["id"]
+
+    response = client.put(
+        f"/api/v1/workflows/{workflow_id}",
+        json={
+            "status": "APPROVED"
+        }
+    )
+
+    assert response.status_code == 422
+
+    # Verify that the original status remains unchanged.
+    get_response = client.get(
+        f"/api/v1/workflows/{workflow_id}"
+    )
+
+    assert get_response.status_code == 200
+    assert get_response.json()["status"] == "PENDING"
 
 # TEST 8: Delete workflow
 def test_delete_workflow(client):

@@ -175,11 +175,11 @@ async def test_orchestrator_success(monkeypatch, sample_input):
 
 
 @pytest.mark.anyio
-async def test_documentation_agent_receives_filenames(
+async def test_documentation_agent_receives_full_file_objects(
     monkeypatch,
     sample_input
 ):
-    """Verify that documentation receives filenames as strings."""
+    """Verify that documentation receives complete GitHub file objects."""
 
     captured_input = {}
 
@@ -219,11 +219,10 @@ async def test_documentation_agent_receives_filenames(
 
     await orchestrator.run(sample_input)
 
-    assert captured_input["changed_files"] == [
-        "backend/auth.py",
-        "README.md",
-    ]
-
+    assert captured_input["changed_files"] == (
+    sample_input.context["changed_files"]
+    )
+    assert "patch" in captured_input["changed_files"][0]
 
 @pytest.mark.anyio
 async def test_code_review_agent_receives_file_patches(

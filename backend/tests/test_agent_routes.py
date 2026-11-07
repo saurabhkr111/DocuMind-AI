@@ -15,6 +15,9 @@ from backend.app.schemas.agent import (
     AgentOutput,
     AgentStatus,
 )
+from backend.tests.conftest import (
+    apply_test_auth_override,
+)
 
 
 @pytest.fixture
@@ -53,6 +56,7 @@ def client(db_session):
         yield db_session
 
     app.dependency_overrides[get_db] = override_get_db
+    apply_test_auth_override()
 
     try:
         with TestClient(app) as test_client:
@@ -147,7 +151,7 @@ def test_analyze_agents_success(
     assert len(workflows) == 1
     workflow = workflows[0]
 
-    assert workflow.status == "COMPLETED"
+    assert workflow.status == "AWAITING_APPROVAL"
     assert workflow.title == valid_payload["task"]
 
     # Verify agent logs.
